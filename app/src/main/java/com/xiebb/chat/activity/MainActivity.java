@@ -11,12 +11,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
 import com.hyphenate.chat.EMChatManager;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.util.NetUtils;
 import com.xiebb.chat.R;
 import com.xiebb.chat.utils.IntentUtil;
 import com.xiebb.chat.utils.SpUtils;
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        connectionListener();
     }
 
     private void initView() {
@@ -117,13 +123,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (view.getId()) {
             case R.id.imageView:
                 if (TextUtils.isEmpty(SpUtils.getString(getApplicationContext(), "username"))) {
-                    intent = IntentUtil.getInstance(getApplicationContext(), LoginActivity.class);
-
+                    intent = IntentUtil.getInstance();
+                    intent.setClass(getApplicationContext(), LoginActivity.class);
                 } else {
-                    intent = IntentUtil.getInstance(getApplicationContext(), MeActivity.class);
+                    intent = IntentUtil.getInstance();
+                    intent.setClass(getApplicationContext(), MeActivity.class);
                 }
                 startActivity(intent);
-
                 break;
         }
     }
@@ -134,6 +140,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void connectionListener() {
-//        EMChatManager.getInstance().addConnectionListener(new MyConnectionListener());
+        EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+    }
+
+    //实现ConnectionListener接口
+    private class MyConnectionListener implements EMConnectionListener {
+        @Override
+        public void onConnected() {
+        }
+
+        @Override
+        public void onDisconnected(final int error) {
+            runOnUiThread(new Runnable() {
+                              @Override
+                              public void run() {
+                                  if (error == EMError.USER_REMOVED) {
+                                      // 显示帐号已经被移除
+                                  } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+                                      // 显示帐号在其他设备登录
+                                  } else {
+                                      if (NetUtils.hasNetwork(MainActivity.this)) {
+
+                                      }
+                                      //连接不到聊天服务器
+                                      else {
+                                          //当前网络不可用，请检查网络设置
+                                      }
+
+                                  }
+                              }
+                          }
+            );
+        }
     }
 }

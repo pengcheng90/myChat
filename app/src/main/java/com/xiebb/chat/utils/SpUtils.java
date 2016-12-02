@@ -40,7 +40,7 @@ public class SpUtils {
 
     public static void reMove(Context context, String key) {
         SharedPreferences sp = context.getSharedPreferences("userInfo", Context.MODE_APPEND);
-        sp.edit().remove(key);
+        sp.edit().remove(key).commit();
     }
 
 }

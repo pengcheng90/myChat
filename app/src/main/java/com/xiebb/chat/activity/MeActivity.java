@@ -36,7 +36,7 @@ public class MeActivity extends BaseActivity {
         logout = (Button) findViewById(R.id.logout);
         logout.setOnClickListener(this);
 
-        username.setText(SpUtils.getString(getApplicationContext(), "username"));
+        username.setText("用户"+SpUtils.getString(getApplicationContext(), "username"));
     }
 
     @Override
@@ -47,8 +47,9 @@ public class MeActivity extends BaseActivity {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.login:
+            case R.id.logout:
                 logout();
+                break;
         }
     }
 
@@ -60,8 +61,10 @@ public class MeActivity extends BaseActivity {
             @Override
             public void onSuccess() {
                 ToastUtils.showThread(MeActivity.this, "退出成功");
+                finish();
                 SpUtils.reMove(getApplicationContext(), "username");
                 SpUtils.reMove(getApplicationContext(), "password");
+                finish();
             }
 
             @Override

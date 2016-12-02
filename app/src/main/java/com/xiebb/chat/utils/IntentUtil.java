@@ -10,11 +10,11 @@ import android.content.Intent;
 public class IntentUtil {
     public static Intent intent;
 
-   public static Intent getInstance(Context context,Class c){
-       if (intent==null){
-                intent=new Intent(context,c);
-           return intent;
-       }
-       return intent;
-   }
+    public static Intent getInstance() {
+        if (intent == null) {
+            intent = new Intent();
+            return intent;
+        }
+        return intent;
+    }
 }

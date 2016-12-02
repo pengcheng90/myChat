@@ -5,11 +5,15 @@
     android:orientation="vertical">
 
     <TextView
+        android:gravity="center"
+        android:padding="@dimen/margin_lager"
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
+        android:gravity="center"
+        android:text="退出"
         android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
