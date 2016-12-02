@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+  <LinearLayout
+      android:background="@color/colorPrimary"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <ImageView
+          android:padding="@dimen/padding_middle"
+          android:id="@+id/back"
+          android:src="@mipmap/back"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/image_middle"/>
+      <TextView
+          android:gravity="center_vertical"
+          android:textSize="@dimen/text_lager"
+          android:text="登录"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+  </LinearLayout>
+    <EditText
+        android:layout_marginTop="@dimen/margin_4lager"
+        android:padding="@dimen/padding_middle"
+        android:layout_marginLeft="@dimen/margin_4lager"
+        android:layout_marginRight="@dimen/margin_4lager"
+        android:id="@+id/username"
+        android:hint="请输入用户名"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <EditText
+        android:password="true"
+        android:padding="@dimen/padding_middle"
+        android:layout_marginLeft="@dimen/margin_4lager"
+        android:layout_marginRight="@dimen/margin_4lager"
+        android:id="@+id/password"
+        android:hint="请输入密码"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <RelativeLayout
+        android:layout_margin="@dimen/margin_4lager"
+        android:layout_marginTop="@dimen/margin_3lager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+         <Button
+             android:id="@+id/login"
+             android:background="@color/colorPrimary"
+             android:text="登录"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/register"
+              android:layout_centerInParent="true"
+              android:layout_alignParentRight="true"
+              android:text="还没有账号？点击注册"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>
