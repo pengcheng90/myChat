@@ -28,4 +28,5 @@ dependencies {
     compile 'com.android.support:design:25.0.1'
     testCompile 'junit:junit:4.12'
     compile files('libs/hyphenatechat_3.2.2.jar')
+    compile project(path: ':EaseUI')
 }
