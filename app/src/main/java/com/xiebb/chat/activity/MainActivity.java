@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void initView() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("消息");
         setSupportActionBar(mToolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -82,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         getSupportFragmentManager().beginTransaction().replace(R.id.content, easeConversationListFragment).commit();
-        mToolbar.setTitle("消息");
     }
 
     @Override
@@ -122,9 +122,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             contactListFragment = new ContactListFragment();
             getSupportFragmentManager().beginTransaction().add(R.id.content, contactListFragment).commit();
         } else if (id == R.id.dynamic) {
-            mToolbar.setTitle("动态");
+            ToastUtils.show(getApplicationContext(), "动态功能正在开发中");
+//            mToolbar.setTitle("动态");
         } else if (id == R.id.setting) {
-            mToolbar.setTitle("设置");
+            ToastUtils.show(getApplicationContext(), "设置功能正在开发中");
+//            mToolbar.setTitle("设置");
         }
         closeDrawer();
         return true;
