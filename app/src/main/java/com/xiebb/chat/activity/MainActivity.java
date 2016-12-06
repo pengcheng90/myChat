@@ -2,7 +2,9 @@ package com.xiebb.chat.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,11 +14,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
@@ -37,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ContactListFragment contactListFragment;
     private Toolbar mToolbar;
     private EaseConversationListFragment easeConversationListFragment;
+    // 定义一个变量，来标识是否退出
+    private static boolean isExit = false;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,15 +102,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public boolean onCreatePanelMenu(int featureId, Menu menu) {
+        return super.onCreatePanelMenu(featureId, menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        this.menu = menu;
+//            getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.contact, menu);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            ToastUtils.show(getApplicationContext(), "设置功能正在开发");
+            return true;
+        } else if (id == R.id.add_frienid) {
+            intent = new Intent(this, AddFriendActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -113,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         int id = item.getItemId();
         if (id == R.id.message) {
             getSupportFragmentManager().beginTransaction().replace(R.id.content, easeConversationListFragment).commit();
@@ -198,5 +219,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void replaceChat(Fragment fragment) {
 
+    }
+
+    private void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    isExit = false;
+                }
+            }, 5000);
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

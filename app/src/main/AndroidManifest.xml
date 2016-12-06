@@ -47,6 +47,7 @@
 
         <activity
             android:name=".activity.MainActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,6 +58,7 @@
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisteActivity" />
         <activity android:name=".activity.MeActivity" />
+        <activity android:name="com.xiebb.chat.activity.AddFriendActivity" />
         <activity
             android:name=".huanxin.activity.ChatActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

@@ -56,43 +56,12 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onClick(View view) {
-        final String name = username.getText().toString().trim();
-        final String pwd = password.getText().toString().trim();
-        if (TextUtils.isEmpty(name)) {
-            ToastUtils.show(getApplicationContext(), "请输入用户名");
-            return;
-        } else if (TextUtils.isEmpty(pwd)) {
-            ToastUtils.show(getApplicationContext(), "请输入密码");
-            return;
-        }
+
 
         Intent intent;
         switch (view.getId()) {
             case R.id.login:
-
-                EMClient.getInstance().login(name, pwd, new EMCallBack() {
-                    @Override
-                    public void onSuccess() {
-                        EMClient.getInstance().groupManager().loadAllGroups();
-                        EMClient.getInstance().chatManager().loadAllConversations();
-                        SpUtils.putString(getApplicationContext(), "username", name);
-                        SpUtils.putString(getApplicationContext(), "password", pwd);
-                        ToastUtils.showThread(LoginActivity.this, "登陆成功");
-                    }
-
-                    @Override
-                    public void onProgress(int progress, String status) {
-
-                    }
-
-                    @Override
-                    public void onError(int code, String message) {
-                        if (code == 200) {
-                            ToastUtils.showThread(LoginActivity.this, "用户已登陆");
-                        }
-                        LogUtils.e(TAG, "code:" + code + "message:" + message);
-                    }
-                });
+                login();
                 break;
             case R.id.back:
                 finish();
@@ -104,5 +73,41 @@ public class LoginActivity extends BaseActivity {
 
 
         }
+    }
+
+    private void login() {
+        final String name = username.getText().toString().trim();
+        final String pwd = password.getText().toString().trim();
+        if (TextUtils.isEmpty(name)) {
+            ToastUtils.show(getApplicationContext(), "请输入用户名");
+            return;
+        } else if (TextUtils.isEmpty(pwd)) {
+            ToastUtils.show(getApplicationContext(), "请输入密码");
+            return;
+        }
+        EMClient.getInstance().login(name, pwd, new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                EMClient.getInstance().groupManager().loadAllGroups();
+                EMClient.getInstance().chatManager().loadAllConversations();
+                SpUtils.putString(getApplicationContext(), "username", name);
+                SpUtils.putString(getApplicationContext(), "password", pwd);
+                ToastUtils.showThread(LoginActivity.this, "登陆成功，返回");
+                finish();
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                if (code == 200) {
+                    ToastUtils.showThread(LoginActivity.this, "用户已登陆");
+                }
+                LogUtils.e(TAG, "code:" + code + "message:" + message);
+            }
+        });
     }
 }
