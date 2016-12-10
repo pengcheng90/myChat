@@ -59,6 +59,7 @@
         <activity android:name=".activity.RegisteActivity" />
         <activity android:name=".activity.MeActivity" />
         <activity android:name="com.xiebb.chat.activity.AddFriendActivity" />
+        <activity android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity" />
         <activity
             android:name=".huanxin.activity.ChatActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
